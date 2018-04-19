@@ -57,8 +57,6 @@ public static class GameResources
 		NewSound("Miss", "watershot.wav");
 		NewSound("Winner", "winner.wav");
 		NewSound("Lose", "lose.wav");
-		// NOTE(Xavier): This sound is not included in the project
-		// NewSound ("Siren", "siren.wav");
 	}
 
 	private static void LoadMusic()
@@ -120,27 +118,19 @@ public static class GameResources
 
 		ShowMessage("Loading fonts...", 0);
 		LoadFonts();
-		// NOTE(Xavier): Delay removed to speed up debugging 
-		//SwinGame.Delay (100);
 
 		ShowMessage("Loading images...", 1);
 		LoadImages();
-		// NOTE(Xavier): Delay removed to speed up debugging 
-		//SwinGame.Delay (100);
 
 		ShowMessage("Loading sounds...", 2);
 		LoadSounds();
-		// NOTE(Xavier): Delay removed to speed up debugging 
-		//SwinGame.Delay (100);
 
 		ShowMessage("Loading music...", 3);
 		LoadMusic();
-		// NOTE(Xavier): Delay removed to speed up debugging 
-		//SwinGame.Delay (100);
+
 
 		ShowMessage("Game loaded...", 5);
-		// NOTE(Xavier): Delay removed to speed up debugging 
-		//SwinGame.Delay (100);
+
 		EndLoadingScreen(width, height);
 	}
 
@@ -164,20 +154,16 @@ public static class GameResources
 	{
 		const int ANI_CELL_COUNT = 11;
 		Audio.PlaySoundEffect(_startSound);
-		// NOTE(Xavier): Delay removed to speed up debugging 
-		//SwinGame.Delay (200);
+
 
 		for (int i = 0; i <= ANI_CELL_COUNT - 1; i++)
 		{
 			SwinGame.DrawBitmap(_background, 0, 0);
-			// NOTE(Xavier): Delay removed to speed up debugging 
-			//SwinGame.Delay (20);
+
 			SwinGame.RefreshScreen();
 			SwinGame.ProcessEvents();
 		}
 
-		// NOTE(Xavier): Delay removed to speed up debugging 
-		//SwinGame.Delay (1500);
 	}
 
 	private static void ShowMessage(string message, int number)
@@ -188,13 +174,13 @@ public static class GameResources
 		const int TW = 200;
 		const int TH = 25;
 		const int BG_X = 279;
-		// TODO(Xavier): Is this needed??
+	
 		// const int STEPS = 5;
 
 		SwinGame.DrawBitmap(_loaderEmpty, BG_X, BG_Y);
 		SwinGame.DrawCell(_loaderFull, 0, BG_X, BG_Y);
 
-		// TODO(Xavier): This is not supported, find alternative
+
 		// int fullW = (260 * number) / STEPS;
 		// SwinGame.DrawBitmapPart(_LoaderFull, 0, 0, fullW, 66, BG_X, BG_Y)
 
@@ -204,7 +190,7 @@ public static class GameResources
 		toDraw.Width = TW;
 		toDraw.Height = TH;
 
-		// TODO(Xavier): DrawTextLines
+
 		// SwinGame.DrawTextLines (message, Color.White, Color.Transparent, _LoadingFont, FontAlignment.AlignCenter, toDraw);
 		// SwinGame.DrawTextLines(message, Color.White, Color.Transparent, _LoadingFont, FontAlignment.AlignCenter, TX, TY, TW, TH)
 		SwinGame.DrawText(message, Color.White, Color.Transparent, _loadingFont, FontAlignment.AlignCenter, toDraw);
@@ -218,8 +204,6 @@ public static class GameResources
 	{
 		SwinGame.ProcessEvents();
 
-		// NOTE(Xavier): Delay removed to speed up debugging 
-		//SwinGame.Delay (500);
 
 		SwinGame.ClearScreen();
 		SwinGame.RefreshScreen();
@@ -229,7 +213,6 @@ public static class GameResources
 		SwinGame.FreeBitmap(_loaderEmpty);
 		SwinGame.FreeBitmap(_loaderFull);
 
-		// TODO(Xavier): This causes the game to crash
 		// Audio.FreeSoundEffect (_StartSound);
 
 		SwinGame.ChangeScreenSize(width, height);
@@ -283,7 +266,6 @@ public static class GameResources
 
 	private static void FreeSounds()
 	{
-		// NOTE(Xavier): This causes the game to crash
 		// foreach (SoundEffect obj in _Sounds.Values) {
 		//     Audio.FreeSoundEffect (obj);
 		// }

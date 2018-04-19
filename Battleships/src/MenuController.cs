@@ -173,7 +173,6 @@ public static class MenuController
 			toDraw.Width = BUTTON_WIDTH;
 			toDraw.Height = BUTTON_HEIGHT;
 
-			// TODO(Xavier): DrawTextLines
 			// SwinGame.DrawTextLines (_menuStructure [menu] [i], MENU_COLOR, Color.Black, GameResources.GameFont ("Menu"), FontAlignment.AlignCenter, toDraw);
 			SwinGame.DrawText(_menuStructure[menu][i], Color.White, btnLeft, btnTop);
 
