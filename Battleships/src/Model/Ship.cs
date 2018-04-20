@@ -1,13 +1,8 @@
 using System.Collections.Generic;
-
-// '' <summary>
-// '' A Ship has all the details about itself. For example the shipname,
-// '' size, number of hits taken and the location. Its able to add tiles,
-// '' remove, hits taken and if its deployed and destroyed.
-// '' </summary>
-// '' <remarks>
-// '' Deployment information is supplied to allow ships to be drawn.
-// '' </remarks>
+//A Ship has all the details about itself. For example the shipname,
+//size, number of hits taken and the location. Its able to add tiles,
+//remove, hits taken and if its deployed and destroyed
+//Deployment information is supplied to allow ships to be drawn.
 public class Ship
 {
 	private ShipName _shipName;
@@ -18,11 +13,9 @@ public class Ship
 	private int _col;
 	private Direction _direction;
 
-	// '' <summary>
-	// '' The type of ship
-	// '' </summary>
-	// '' <value>The type of ship</value>
-	// '' <returns>The type of ship</returns>
+	//The type of ship
+	//<value>The type of ship</value>
+	//<returns>The type of ship</returns>
 	public string Name
 	{
 		get
@@ -85,18 +78,14 @@ public class Ship
 		_sizeOfShip = (int)(_shipName);
 	}
 
-	// '' <summary>
-	// '' Add tile adds the ship tile
-	// '' </summary>
-	// '' <param name="tile">one of the tiles the ship is on</param>
+	//Add tile adds the ship tile
+	//<param name="tile">one of the tiles the ship is on</param>
 	public void AddTile(Tile tile)
 	{
 		_tiles.Add(tile);
 	}
 
-	// '' <summary>
-	// '' Remove clears the tile back to a sea tile
-	// '' </summary>
+	//Remove clears the tile back to a sea tile
 	public void Remove()
 	{
 		foreach (Tile tile in _tiles)
@@ -112,10 +101,8 @@ public class Ship
 		_hitsTaken = (_hitsTaken + 1);
 	}
 
-	// '' <summary>
-	// '' IsDeployed returns if the ships is deployed, if its deplyed it has more than
-	// '' 0 tiles
-	// '' </summary>
+	//IsDeployed returns if the ships is deployed, if its deplyed it has more than
+	//0 tiles
 	public bool IsDeployed
 	{
 		get
