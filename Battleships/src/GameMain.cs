@@ -25,7 +25,7 @@ namespace MyGame
                 
                 //Draw onto the screen
                 RefreshScreen(60);
-                ;;
+                
             }
         }
     }
