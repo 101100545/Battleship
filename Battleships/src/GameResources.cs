@@ -58,7 +58,7 @@ public static class GameResources
 		NewSound("Winner", "winner.wav");
 		NewSound("Lose", "lose.wav");
 	}
-
+    //
 	private static void LoadMusic()
 	{
 		NewMusic("Background", "horrordrone.mp3");
@@ -118,15 +118,19 @@ public static class GameResources
 
 		ShowMessage("Loading fonts...", 0);
 		LoadFonts();
+        SwinGame.Delay (100);
 
 		ShowMessage("Loading images...", 1);
 		LoadImages();
+        SwinGame.Delay (100);
 
 		ShowMessage("Loading sounds...", 2);
 		LoadSounds();
+        SwinGame.Delay (100);
 
 		ShowMessage("Loading music...", 3);
 		LoadMusic();
+        SwinGame.Delay (100);
 
 
 		ShowMessage("Game loaded...", 5);
@@ -245,7 +249,7 @@ public static class GameResources
 
 	private static void NewMusic(string musicName, string filename)
 	{
-		_music.Add(musicName, Audio.LoadMusic(SwinGame.PathToResource(filename, ResourceKind.SoundResource)));
+        _music.Add(musicName, Audio.LoadMusic(SwinGame.PathToResource(filename, ResourceKind.SoundResource)));
 	}
 
 	private static void FreeFonts()

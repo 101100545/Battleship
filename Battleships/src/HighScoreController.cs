@@ -2,32 +2,23 @@ using System.IO;
 using SwinGameSDK;
 using System.Collections.Generic;
 using System;
-
-// '' <summary>
-// '' Controls displaying and collecting high score data.
-// '' </summary>
-// '' <remarks>
-// '' Data is saved to a file.
-// '' </remarks>
+//Controls displaying and collecting high score dat
+//Data is saved to a file
 public static class HighScoreController
 {
 	private const int NAME_WIDTH = 3;
 	private const int SCORES_LEFT = 490;
 
-	// '' <summary>
-	// '' The score structure is used to keep the name and
-	// '' score of the top players together.
-	// '' </summary>
+	//The score structure is used to keep the name and
+	//score of the top players together.
 	private struct Score : IComparable
 	{
 		public string Name;
 		public int Value;
 
-		// '' <summary>
-		// '' Allows scores to be compared to facilitate sorting
-		// '' </summary>
-		// '' <param name="obj">the object to compare to</param>
-		// '' <returns>a value that indicates the sort order</returns>
+		//Allows scores to be compared to facilitate sorting
+		//<param name="obj">the object to compare to</param>
+		//<returns>a value that indicates the sort order</returns>
 		public int CompareTo(object obj)
 		{
 			if (obj is Score)
@@ -49,7 +40,7 @@ public static class HighScoreController
 		string filename = SwinGame.PathToResource("highscores.txt");
 		StreamReader input = new StreamReader(filename);
 
-		// Read in the # of scores:
+		
 		int numScores = Convert.ToInt32(input.ReadLine());
 
 		_scores.Clear();
@@ -66,16 +57,13 @@ public static class HighScoreController
 		input.Close();
 	}
 
-	// '' <summary>
-	// '' Saves the scores back to the highscores text file.
-	// '' </summary>
-	// '' <remarks>
-	// '' The format is
-	// '' # of scores
-	// '' NNNSSS
-	// '' 
-	// '' Where NNN is the name and SSS is the score
-	// '' </remarks>
+	//Saves the scores back to the highscores text file.
+	//The format is
+	//# of scores
+	//NNNSSS
+	//
+	//Where NNN is the name and SSS is the score
+    //Note: TODO - fix the bug of saving highscores
 	private static void SaveScores()
 	{
 		string filename = SwinGame.PathToResource("highscores.txt");
@@ -91,9 +79,7 @@ public static class HighScoreController
 		output.Close();
 	}
 
-	// '' <summary>
-	// '' Draws the high scores to the screen.
-	// '' </summary>
+	//Draws the high scores to the screen.
 	public static void DrawHighScores()
 	{
 		const int SCORES_HEADING = 40;
@@ -124,10 +110,7 @@ public static class HighScoreController
 		}
 	}
 
-	// '' <summary>
-	// '' Handles the user input during the top score screen.
-	// '' </summary>
-	// '' <remarks></remarks>
+	//Handles the user input during the top score screen.
 	public static void HandleHighScoreInput()
 	{
 		if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.EscapeKey) || SwinGame.KeyTyped(KeyCode.ReturnKey))
@@ -136,13 +119,9 @@ public static class HighScoreController
 		}
 	}
 
-	// '' <summary>
-	// '' Read the user's name for their highsSwinGame.
-	// '' </summary>
-	// '' <param name="value">the player's sSwinGame.</param>
-	// '' <remarks>
-	// '' This verifies if the score is a highsSwinGame.
-	// '' </remarks>
+	//Read the user's name for their highsSwinGame.
+	//<param name="value">the player's sSwinGame.</param>
+	//This verifies if the score is a highsSwinGame.
 	public static void ReadHighScore(int value)
 	{
 		const int ENTRY_TOP = 500;
