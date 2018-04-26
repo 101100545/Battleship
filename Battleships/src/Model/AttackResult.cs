@@ -1,6 +1,4 @@
-// '' <summary>
-// '' AttackResult gives the result after a shot has been made.
-// '' </summary>
+// AttackResult gives the result after a shot has been made.
 public class AttackResult
 {
 	private ResultOfAttack _value;
@@ -9,11 +7,8 @@ public class AttackResult
 	private int _row;
 	private int _column;
 
-	// '' <summary>
-	// '' The result of the attack
-	// '' </summary>
-	// '' <value>The result of the attack</value>
-	// '' <returns>The result of the attack</returns>
+
+	// The result of the attack
 	public ResultOfAttack Value
 	{
 		get
@@ -63,20 +58,13 @@ public class AttackResult
 		_column = column;
 	}
 
-	// '' <summary>
-	// '' Set the _Value to the PossibleAttack value, and the _Ship to the ship
-	// '' </summary>
-	// '' <param name="value">either hit, miss, destroyed, shotalready</param>
-	// '' <param name="ship">the ship information</param>
+	// Set the _Value to the PossibleAttack value, and the _Ship to the ship
 	public AttackResult(ResultOfAttack value, Ship ship, string text, int row, int column) : this(value, text, row, column)
 	{
 		_ship = ship;
 	}
 
-	// '' <summary>
 	// '' Displays the textual information about the attack
-	// '' </summary>
-	// '' <returns>The textual information about the attack</returns>
 	public override string ToString()
 	{
 		if (_ship == null)

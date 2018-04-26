@@ -1,6 +1,7 @@
 using System;
 
-//Tile knows its location on the grid, if it is a ship and if it has been shot before
+// Tile knows its location on the grid, if it is a ship and if it has been 
+// shot before
 public class Tile
 {
 	private int _rowValue;
@@ -68,13 +69,13 @@ public class Tile
 		_ship = ship;
 	}
 
-	//Clearship will remove the ship from the tile
+	// Clearship will remove the ship from the tile
 	public void ClearShip()
 	{
 		_ship = null;
 	}
 
-	//View is able to tell the grid what the tile is
+	// View is able to tell the grid what the tile is
 	public TileView View
 	{
 		get

@@ -1,30 +1,18 @@
-// '' <summary>
-// '' The result of an attack.
-// '' </summary>
+// The result of an attack.
 public enum ResultOfAttack
 {
-	// '' <summary>
-	// '' The player hit something
-	// '' </summary>
+	// The player hit something
 	Hit,
 
-	// '' <summary>
-	// '' The player missed
-	// '' </summary>
+	// The player missed
 	Miss,
 
-	// '' <summary>
-	// '' The player destroyed a ship
-	// '' </summary>
+	// The player destroyed a ship
 	Destroyed,
 
-	// '' <summary>
-	// '' That location was already shot.
-	// '' </summary>
+	// That location was already shot.
 	ShotAlready,
 
-	// '' <summary>
-	// '' The player killed all of the opponents ships
-	// '' </summary>
+	// The player killed all of the opponents ships
 	GameOver,
 }

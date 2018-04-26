@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-// '' <summary>
-// '' The SeaGrid is the grid upon which the ships are deployed.
-// '' </summary>
-// '' <remarks>
-// '' The grid is viewable via the ISeaGrid interface as a read only
-// '' grid. This can be used in conjuncture with the SeaGridAdapter to 
-// '' mask the position of the ships.
-// '' </remarks>
+// The SeaGrid is the grid upon which the ships are deployed.
+// The grid is viewable via the ISeaGrid interface as a read only
+// grid. This can be used in conjuncture with the SeaGridAdapter to 
+// mask the position of the ships.
 public class SeaGrid : ISeaGrid
 {
 	private const int _WIDTH = 10;
@@ -18,16 +14,10 @@ public class SeaGrid : ISeaGrid
 	private Dictionary<ShipName, Ship> _ships;
 	private int _shipsKilled;
 
-	// '' <summary>
-	// '' The sea grid has changed and should be redrawn.
-	// '' </summary>
+	// The sea grid has changed and should be redrawn.
 	public event EventHandler Changed;
 
-	// '' <summary>
-	// '' The width of the sea grid.
-	// '' </summary>
-	// '' <value>The width of the sea grid.</value>
-	// '' <returns>The width of the sea grid.</returns>
+	// The width of the sea grid.
 	public int Width
 	{
 		get
@@ -60,9 +50,7 @@ public class SeaGrid : ISeaGrid
 		}
 	}
 
-	// '' <summary>
-	// '' AllDeployed checks if all the ships are deployed
-	// '' </summary>
+	// AllDeployed checks if all the ships are deployed
 	public bool AllDeployed
 	{
 		get
@@ -93,13 +81,7 @@ public class SeaGrid : ISeaGrid
 		_ships = ships;
 	}
 
-	// '' <summary>
-	// '' MoveShips allows for ships to be placed on the seagrid
-	// '' </summary>
-	// '' <param name="row">the row selected</param>
-	// '' <param name="col">the column selected</param>
-	// '' <param name="ship">the ship selected</param>
-	// '' <param name="direction">the direction the ship is going</param>
+	// MoveShips allows for ships to be placed on the seagrid
 	public void MoveShip(int row, int col, ShipName ship, Direction direction)
 	{
 		Ship newShip = _ships[ship];
@@ -107,13 +89,7 @@ public class SeaGrid : ISeaGrid
 		AddShip(row, col, direction, newShip);
 	}
 
-	// '' <summary>
-	// '' AddShip add a ship to the SeaGrid
-	// '' </summary>
-	// '' <param name="row">row coordinate</param>
-	// '' <param name="col">col coordinate</param>
-	// '' <param name="direction">direction of ship</param>
-	// '' <param name="newShip">the ship</param>
+	// AddShip add a ship to the SeaGrid
 	private void AddShip(int row, int col, Direction direction, Ship newShip)
 	{
 		try
@@ -155,16 +131,16 @@ public class SeaGrid : ISeaGrid
 			// if fails remove the ship
 			throw new ApplicationException(e.Message);
 		}
-		
+		finally
+		{
+			// FIXME(Xavier): This is null????
+			// The changed event should be set earlier in the program to fix this.
+			// Changed (this, EventArgs.Empty);
+		}
 	}
 
-	// '' <summary>
-	// '' HitTile hits a tile at a row/col, and whatever tile has been hit, a
-	// '' result will be displayed.
-	// '' </summary>
-	// '' <param name="row">the row at which is being shot</param>
-	// '' <param name="col">the cloumn at which is being shot</param>
-	// '' <returns>An attackresult (hit, miss, sunk, shotalready)</returns>
+	// HitTile hits a tile at a row/col, and whatever tile has been hit, a
+	// result will be displayed.
 	public AttackResult HitTile(int row, int col)
 	{
 		try

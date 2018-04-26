@@ -1,20 +1,12 @@
-// '' <summary>
-// '' The different AI levels.
-// '' </summary>
+// The different AI levels.
 public enum AIOption
 {
-	// '' <summary>
-	// '' Easy, total random shooting
-	// '' </summary>
+	// Easy, total random shooting
 	Easy,
 
-	// '' <summary>
-	// '' Medium, marks squares around hits
-	// '' </summary>
+	// Medium, marks squares around hits
 	Medium,
 
-	// '' <summary>
-	// '' As medium, but removes shots once it misses
-	// '' </summary>
+	// As medium, but removes shots once it misses
 	Hard,
 }

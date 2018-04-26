@@ -1,8 +1,9 @@
 using System.Collections.Generic;
-//A Ship has all the details about itself. For example the shipname,
-//size, number of hits taken and the location. Its able to add tiles,
-//remove, hits taken and if its deployed and destroyed
-//Deployment information is supplied to allow ships to be drawn.
+
+// A Ship has all the details about itself. For example the shipname,
+// size, number of hits taken and the location. Its able to add tiles,
+// remove, hits taken and if its deployed and destroyed.
+// Deployment information is supplied to allow ships to be drawn.
 public class Ship
 {
 	private ShipName _shipName;
@@ -13,9 +14,7 @@ public class Ship
 	private int _col;
 	private Direction _direction;
 
-	//The type of ship
-	//<value>The type of ship</value>
-	//<returns>The type of ship</returns>
+	// The type of ship
 	public string Name
 	{
 		get
@@ -78,14 +77,13 @@ public class Ship
 		_sizeOfShip = (int)(_shipName);
 	}
 
-	//Add tile adds the ship tile
-	//<param name="tile">one of the tiles the ship is on</param>
+	// Add tile adds the ship tile
 	public void AddTile(Tile tile)
 	{
 		_tiles.Add(tile);
 	}
 
-	//Remove clears the tile back to a sea tile
+	// Remove clears the tile back to a sea tile
 	public void Remove()
 	{
 		foreach (Tile tile in _tiles)
@@ -101,8 +99,8 @@ public class Ship
 		_hitsTaken = (_hitsTaken + 1);
 	}
 
-	//IsDeployed returns if the ships is deployed, if its deplyed it has more than
-	//0 tiles
+	// IsDeployed returns if the ships is deployed, if its deplyed it has more than
+	// 0 tiles
 	public bool IsDeployed
 	{
 		get

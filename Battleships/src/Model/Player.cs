@@ -1,12 +1,9 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
-// '' <summary>
-// '' Player has its own _PlayerGrid, and can see an _EnemyGrid, it can also check if
-// '' all ships are deployed and if all ships are detroyed. A Player can also attach.
-// '' </summary>
+// Player has its own _PlayerGrid, and can see an _EnemyGrid, it can also check if
+// all ships are deployed and if all ships are detroyed. A Player can also attach.
 public class Player : IEnumerable
 {
 	protected static Random _random = new Random();
@@ -19,11 +16,7 @@ public class Player : IEnumerable
 	private int _hits;
 	private int _misses;
 
-	// '' <summary>
-	// '' Returns the game that the player is part of.
-	// '' </summary>
-	// '' <value>The game</value>
-	// '' <returns>The game that the player is playing</returns>
+	// Returns the game that the player is part of.
 	public BattleShipsGame Game
 	{
 		get
@@ -62,9 +55,7 @@ public class Player : IEnumerable
 		RandomizeDeployment();
 	}
 
-	// '' <summary>
-	// '' The EnemyGrid is a ISeaGrid because you shouldn't be allowed to see the enemies ships
-	// '' </summary>
+	// The EnemyGrid is a ISeaGrid because you shouldn't be allowed to see the enemies ships
 	public ISeaGrid EnemyGrid
 	{
 		get
@@ -160,11 +151,8 @@ public class Player : IEnumerable
 		return lst.GetEnumerator();
 	}
 
-	// '' <summary>
-	// '' Makes it possible to enumerate over the ships the player
-	// '' has.
-	// '' </summary>
-	// '' <returns>A Ship enumerator</returns>
+	// Makes it possible to enumerate over the ships the player
+	// has.
 	public IEnumerator GetEnumerator()
 	{
 		Ship[] result = new Ship[_ships.Values.Count];
@@ -174,33 +162,27 @@ public class Player : IEnumerable
 		return lst.GetEnumerator();
 	}
 
-	// '' <summary>
-	// '' Vitual Attack allows the player to shoot
-	// '' </summary>
 	public virtual AttackResult Attack()
 	{
 		// human does nothing here...
 		return null;
 	}
 
-	// '' <summary>
-	// '' Shoot at a given row/column
-	// '' </summary>
-	// '' <param name="row">the row to attack</param>
-	// '' <param name="col">the column to attack</param>
-	// '' <returns>the result of the attack</returns>
+	// Shoot at a given row/column
+
 	internal AttackResult Shoot(int row, int col)
 	{
-		_shots++;
 		AttackResult result = EnemyGrid.HitTile(row, col);
 		switch (result.Value)
 		{
 			case ResultOfAttack.Destroyed:
 			case ResultOfAttack.Hit:
-				_hits++;
+                _shots++;
+                _hits++;
 				break;
 			case ResultOfAttack.Miss:
-				_misses++;
+                _shots++;
+                _misses++;
 				break;
 		}
 		return result;
