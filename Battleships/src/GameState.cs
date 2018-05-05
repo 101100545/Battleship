@@ -25,10 +25,13 @@ public enum GameState
 	// '' </summary>
 	AlteringSettings,
 
-	// '' <summary>
-	// '' Players are deploying their ships
-	// '' </summary>
-	Deploying,
+    //Player is changing Menu Color
+    AlteringMenuColor,
+
+    // '' <summary>
+    // '' Players are deploying their ships
+    // '' </summary>
+    Deploying,
 
 	// '' <summary>
 	// '' Players are attempting to locate each others ships
