@@ -9,7 +9,7 @@ using System;
 public static class MenuController
 {
 	private static string[][] _menuStructure = {
-		new string[] {"PLAY", "SETUP", "SCORES", "QUIT"},
+		new string[] {"PLAY", "SETUP", "SCORES", "RST SCORES", "RULES", "QUIT",},
 		new string[] {"RETURN", "SURRENDER", "QUIT"},
 		new string[] {"EASY", "MEDIUM", "HARD", "FONT"},
 	};
@@ -27,8 +27,10 @@ public static class MenuController
 	private const int MAIN_MENU_PLAY_BUTTON = 0;
 	private const int MAIN_MENU_SETUP_BUTTON = 1;
 	private const int MAIN_MENU_TOP_SCORES_BUTTON = 2;
-	private const int MAIN_MENU_QUIT_BUTTON = 3;
-	private const int SETUP_MENU_EASY_BUTTON = 0;
+    private const int MAIN_MENU_RST_SCORES = 3; //RST SCORE
+    private const int MAIN_MENU_RULES_BUTTON = 4;
+    private const int MAIN_MENU_QUIT_BUTTON = 5;
+    private const int SETUP_MENU_EASY_BUTTON = 0;
 	private const int SETUP_MENU_MEDIUM_BUTTON = 1;
 	private const int SETUP_MENU_HARD_BUTTON = 2;
     private const int MAIN_MENU_CHANGE_FONT_BUTTON = 3;
@@ -247,7 +249,13 @@ public static class MenuController
 			case MAIN_MENU_TOP_SCORES_BUTTON:
 				GameController.AddNewState(GameState.ViewingHighScores);
 				break;
-			case MAIN_MENU_QUIT_BUTTON:
+            case MAIN_MENU_RST_SCORES:
+                HighScoreController.ClearHighScore();
+                break;
+            case MAIN_MENU_RULES_BUTTON:
+                GameController.AddNewState(GameState.Instructions);
+                break;
+            case MAIN_MENU_QUIT_BUTTON:
 				GameController.EndCurrentState();
 				break;
 		}

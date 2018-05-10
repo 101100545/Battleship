@@ -299,7 +299,10 @@ public static class GameController
 			case GameState.ViewingHighScores:
 				HighScoreController.HandleHighScoreInput();
 				break;
-		}
+            case GameState.Instructions:
+                HighScoreController.HandleHighScoreInput();
+                break;
+        }
 		UtilityFunctions.UpdateAnimations();
 	}
 
@@ -335,6 +338,7 @@ public static class GameController
 			case GameState.ViewingHighScores:
 				HighScoreController.DrawHighScores();
 				break;
+
 		}
 		UtilityFunctions.DrawAnimations();
 		SwinGame.RefreshScreen();
