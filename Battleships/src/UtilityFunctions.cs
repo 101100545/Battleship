@@ -171,150 +171,176 @@ public static class UtilityFunctions
         string shipName;
 
         //Note: Draw the ships
-        foreach (Ship s in thePlayer)
-        {
-            if (s == null || !s.IsDeployed)
-            {
-                continue;
-            }
 
-            rowTop = (top + (((cellGap + cellHeight) * s.Row) + SHIP_GAP));
-            colLeft = (left + (((cellGap + cellWidth) * s.Column) + SHIP_GAP));
-            if ((s.Direction == Direction.LeftRight))
-            {
-                shipName = ("ShipLR" + s.Size);
-                shipHeight = (cellHeight - (SHIP_GAP * 2));
-                shipWidth = (((cellWidth + cellGap) * s.Size) - ((SHIP_GAP * 2) - cellGap));
-            }
-            else
-            {
-                // Up down
-                shipName = ("ShipUD" + s.Size);
-                shipHeight = (((cellHeight + cellGap) * s.Size) - ((SHIP_GAP * 2) - cellGap));
-                shipWidth = (cellWidth - (SHIP_GAP * 2));
-            }
+		foreach (Ship s in thePlayer)
+		{
+			if (s == null || !s.IsDeployed)
+			{
+				continue;
+			}
 
-            if (!small)
-            {
-                SwinGame.DrawBitmap(GameResources.GameImage(shipName), colLeft, rowTop);
-            }
-            else
-            {
-                SwinGame.FillRectangle(SHIP_FILL_COLOR, colLeft, rowTop, shipWidth, shipHeight);
-                SwinGame.DrawRectangle(SHIP_OUTLINE_COLOR, colLeft, rowTop, shipWidth, shipHeight);
-            }
+			rowTop = (top + (((cellGap + cellHeight) * s.Row) + SHIP_GAP));
+			colLeft = (left + (((cellGap + cellWidth) * s.Column) + SHIP_GAP));
+			if ((s.Direction == Direction.LeftRight))
+			{
+				shipName = ("ShipLR" + s.Size);
+				shipHeight = (cellHeight - (SHIP_GAP * 2));
+				shipWidth = (((cellWidth + cellGap) * s.Size) - ((SHIP_GAP * 2) - cellGap));
+			}
+			else
+			{
+				// Up down
+				shipName = ("ShipUD" + s.Size);
+				shipHeight = (((cellHeight + cellGap) * s.Size) - ((SHIP_GAP * 2) - cellGap));
+				shipWidth = (cellWidth - (SHIP_GAP * 2));
+			}
 
-        }
+			if (!small)
+			{
+				SwinGame.DrawBitmap(GameResources.GameImage(shipName), colLeft, rowTop);
+			}
+			else
+			{
+				SwinGame.FillRectangle(SHIP_FILL_COLOR, colLeft, rowTop, shipWidth, shipHeight);
+				SwinGame.DrawRectangle(SHIP_OUTLINE_COLOR, colLeft, rowTop, shipWidth, shipHeight);
+			}
 
-    }
+		}
 
-    private static string _message;
+	}
 
-    //The message to display
-    //<value>The message to display</value>
-    //<returns>The message to display</returns>
-    public static string Message
-    {
-        get
-        {
-            return _message;
-        }
-        set
-        {
-            _message = value;
-        }
-    }
+	private static string _message;
 
-    public static void DrawMessage()
-    {
-        SwinGame.DrawText(Message, MESSAGE_COLOR, GameResources.GameFont("Courier"), FIELD_LEFT, MESSAGE_TOP);
-    }
+	//The message to display
+	//<value>The message to display</value>
+	//<returns>The message to display</returns>
+	public static string Message
+	{
+		get
+		{
+			return _message;
+		}
+		set
+		{
+			_message = value;
+		}
+	}
 
-    //Draws the background for the current state of the game
-    public static void DrawBackground()
-    {
-        switch (GameController.CurrentState)
-        {
-            case GameState.ViewingMainMenu:
-            case GameState.ViewingGameMenu:
-            case GameState.AlteringSettings:
-            case GameState.ViewingHighScores:
-                SwinGame.DrawBitmap(GameResources.GameImage("Menu"), 0, 0);
-                break;
-            case GameState.Discovering:
-            case GameState.EndingGame:
-                SwinGame.DrawBitmap(GameResources.GameImage("Discovery"), 0, 0);
-                break;
-            case GameState.Deploying:
-                SwinGame.DrawBitmap(GameResources.GameImage("Deploy"), 0, 0);
+	public static void DrawMessage()
+	{
+		SwinGame.DrawText(Message, MESSAGE_COLOR, GameResources.GameFont("Courier"), FIELD_LEFT, MESSAGE_TOP);
+	}
+
+	//Draws the background for the current state of the game
+	public static void DrawBackground()
+	{
+		switch (GameController.CurrentState)
+		{
+			case GameState.ViewingMainMenu:
+			case GameState.ViewingGameMenu:
+			case GameState.AlteringSettings:
+			case GameState.ViewingHighScores:
+				SwinGame.DrawBitmap(GameResources.GameImage("Menu"), 0, 0);
+				break;
+			case GameState.Discovering:
+			case GameState.EndingGame:
+				SwinGame.DrawBitmap(GameResources.GameImage("Discovery"), 0, 0);
+				break;
+			case GameState.Deploying:
+				SwinGame.DrawBitmap(GameResources.GameImage("Deploy"), 0, 0);
+				break;
+            case GameState.Instructions:
+                SwinGame.DrawBitmap(GameResources.GameImage("InstructionsPage"), 0, 0);
+                SwinGame.DrawText("--Instructions for Battleship--", Color.Blue, GameResources.GameFont("Courier"), 250, 10);
+
+                SwinGame.DrawText("--BASIC STUFF--", Color.Yellow, GameResources.GameFont("Courier"), 100, 40);
+                SwinGame.DrawText("--DIFFICULTY--", Color.Yellow, GameResources.GameFont("Courier"), 100, 60);
+                SwinGame.DrawText("Choose between 3 Difficulties; Easy, Medium and Hard", Color.White, GameResources.GameFont("Courier"), 100, 80);
+
+                SwinGame.DrawText("--HIGH SCORES--", Color.Yellow, GameResources.GameFont("Courier"), 100, 100);
+                SwinGame.DrawText("Click on the scores button to view the Player's high score", Color.White, GameResources.GameFont("Courier"), 100, 120);
+
+                SwinGame.DrawText("--AIM OF THE GAME--", Color.Yellow, GameResources.GameFont("Courier"), 100, 140);
+                SwinGame.DrawText("Destroy all the opponent's ships in order to win", Color.White, GameResources.GameFont("Courier"), 100, 160);
+
+                SwinGame.DrawText("--SCORING--", Color.Yellow, GameResources.GameFont("Courier"), 100, 190);
+                SwinGame.DrawText("Each time the player hits the opponent's ship, 1 point will be given", Color.White, GameResources.GameFont("Courier"), 100, 210);
+
+                SwinGame.DrawText("--GAME INSTRUCTIONS--", Color.Yellow, GameResources.GameFont("Courier"), 100, 300);
+                SwinGame.DrawText("1. During Ship deployment stage, you can either place the ship on the grid", Color.White, GameResources.GameFont("Courier"), 100, 320);
+                SwinGame.DrawText("horizontally or vertically. Or you can select the random shuffle which deploys", Color.White, GameResources.GameFont("Courier"), 100, 340);
+                SwinGame.DrawText("all the ship on the grid for you. Note: All ship must be deployed before", Color.White, GameResources.GameFont("Courier"), 100, 360);
+                SwinGame.DrawText("starting the game.", Color.White, GameResources.GameFont("Courier"), 100, 380);
+                SwinGame.DrawText("2.During the attack stage, you will just need to Click on the grid", Color.White, GameResources.GameFont("Courier"), 100, 430);
+                SwinGame.DrawText("in order to attack enemy's ship.", Color.White, GameResources.GameFont("Courier"), 100, 450);
                 break;
             default:
-                SwinGame.ClearScreen();
-                break;
-        }
-        SwinGame.DrawFramerate(675, 585);
-    }
+				SwinGame.ClearScreen();
+				break;
+		}
+		SwinGame.DrawFramerate(675, 585);
+	}
 
-    public static void AddExplosion(int row, int col)
-    {
-        AddAnimation(row, col, "Splash");
-    }
+	public static void AddExplosion(int row, int col)
+	{
+		AddAnimation(row, col, "Splash");
+	}
 
-    public static void AddSplash(int row, int col)
-    {
-        AddAnimation(row, col, "Splash");
-    }
+	public static void AddSplash(int row, int col)
+	{
+		AddAnimation(row, col, "Splash");
+	}
 
-    private static List<Sprite> _animations = new List<Sprite>();
+	private static List<Sprite> _animations = new List<Sprite>();
 
-    private static void AddAnimation(int row, int col, string image)
-    {
-        Bitmap imgObj = GameResources.GameImage(image);
-        imgObj.SetCellDetails(40, 40, 3, 3, 7);
+	private static void AddAnimation(int row, int col, string image)
+	{
+		Bitmap imgObj = GameResources.GameImage(image);
+		imgObj.SetCellDetails(40, 40, 3, 3, 7);
 
-        AnimationScript animation = SwinGame.LoadAnimationScript("splash.txt");
+		AnimationScript animation = SwinGame.LoadAnimationScript("splash.txt");
 
-        Sprite s = SwinGame.CreateSprite(imgObj, animation);
-        s.X = (FIELD_LEFT + (col * (CELL_WIDTH + CELL_GAP)));
-        s.Y = (FIELD_TOP + (row * (CELL_HEIGHT + CELL_GAP)));
-        s.StartAnimation("splash");
+		Sprite s = SwinGame.CreateSprite(imgObj, animation);
+		s.X = (FIELD_LEFT + (col * (CELL_WIDTH + CELL_GAP)));
+		s.Y = (FIELD_TOP + (row * (CELL_HEIGHT + CELL_GAP)));
+		s.StartAnimation("splash");
 
-        _animations.Add(s);
-    }
+		_animations.Add(s);
+	}
 
-    public static void UpdateAnimations()
-    {
-        List<Sprite> ended = new List<Sprite>();
-        foreach (Sprite s in _animations)
-        {
-            SwinGame.UpdateSprite(s);
-            if (s.AnimationHasEnded)
-            {
-                ended.Add(s);
-            }
-        }
+	public static void UpdateAnimations()
+	{
+		List<Sprite> ended = new List<Sprite>();
+		foreach (Sprite s in _animations)
+		{
+			SwinGame.UpdateSprite(s);
+			if (s.AnimationHasEnded)
+			{
+				ended.Add(s);
+			}
+		}
 
-        foreach (Sprite s in ended)
-        {
-            _animations.Remove(s);
-            SwinGame.FreeSprite(s);
-        }
-    }
+		foreach (Sprite s in ended)
+		{
+			_animations.Remove(s);
+			SwinGame.FreeSprite(s);
+		}
+	}
 
-    public static void DrawAnimations()
-    {
-        foreach (Sprite s in _animations)
-        {
-            SwinGame.DrawSprite(s);
-        }
-    }
+	public static void DrawAnimations()
+	{
+		foreach (Sprite s in _animations)
+		{
+			SwinGame.DrawSprite(s);
+		}
+	}
 
-    public static void DrawAnimationSequence()
-    {
-        for (int i = 1; (i <= (ANIMATION_CELLS * FRAMES_PER_CELL)); i++)
-        {
-            UpdateAnimations();
-            GameController.DrawScreen();
-        }
-    }
+	public static void DrawAnimationSequence()
+	{
+		for (int i = 1; (i <= (ANIMATION_CELLS * FRAMES_PER_CELL)); i++)
+		{
+			UpdateAnimations();
+			GameController.DrawScreen();
+		}
+	}
 }

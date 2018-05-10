@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
 
-//<summary>
-//The AIMediumPlayer is a type of AIPlayer where it will try and destroy a ship
-//if it has found a ship
-//</summary>
+// '' <summary>
+// '' The AIMediumPlayer is a type of AIPlayer where it will try and destroy a ship
+// '' if it has found a ship
+// '' </summary>
 public class AIMediumPlayer : AIPlayer
 {
-	//<summary>
-	//Private enumarator for AI states. currently there are two states,
-	//the AI can be searching for a ship, or if it has found a ship it will
-	//target the same ship
-	//</summary>
+	// '' <summary>
+	// '' Private enumarator for AI states. currently there are two states,
+	// '' the AI can be searching for a ship, or if it has found a ship it will
+	// '' target the same ship
+	// '' </summary>
 	private enum AIStates
 	{
 		Searching,
@@ -45,7 +45,7 @@ public class AIMediumPlayer : AIPlayer
 					TargetCoords(ref row, ref column);
 					break;
 				default:
-					throw new ApplicationException("AI has gone in an invalid state");
+					throw new ApplicationException("AI has gone in an imvalid state");
 			}
 		}
 	}
@@ -86,7 +86,7 @@ public class AIMediumPlayer : AIPlayer
 	// '' </summary>
 	// '' <param name="row">the row it needs to process</param>
 	// '' <param name="col">the column it needs to process</param>
-	// '' <param name="result">the result of the last shot (should be hit)</param>
+	// '' <param name="result">the result og the last shot (should be hit)</param>
 	protected override void ProcessShot(int row, int col, AttackResult result)
 	{
 		if (result.Value == ResultOfAttack.Hit)
