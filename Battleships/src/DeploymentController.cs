@@ -71,6 +71,7 @@ public static class DeploymentController
 			{
 				GameController.EndDeployment();
 			}
+            //Note:fix rotate button
 			else if (UtilityFunctions.IsMouseInRectangle(UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP, DIR_BUTTONS_WIDTH, TOP_BUTTONS_HEIGHT))
 			{
 				_currentDirection = Direction.UpDown;

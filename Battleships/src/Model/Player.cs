@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -191,17 +190,18 @@ public class Player : IEnumerable
 	// '' <returns>the result of the attack</returns>
 	internal AttackResult Shoot(int row, int col)
 	{
-		_shots++;
 		AttackResult result = EnemyGrid.HitTile(row, col);
 		switch (result.Value)
 		{
 			case ResultOfAttack.Destroyed:
 			case ResultOfAttack.Hit:
 				_hits++;
-				break;
+                _shots++;
+                break;
 			case ResultOfAttack.Miss:
 				_misses++;
-				break;
+                _shots++;
+                break;
 		}
 		return result;
 	}

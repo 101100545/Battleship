@@ -78,7 +78,7 @@ public static class GameController
 		switch (_aiSetting)
 		{
             case AIOption.Easy:
-                _ai = new AIMediumPlayer(_theGame);
+                _ai = new AIEasyPlayer(_theGame);
                 break;
 			case AIOption.Medium:
 				_ai = new AIMediumPlayer(_theGame);
@@ -87,7 +87,7 @@ public static class GameController
 				_ai = new AIHardPlayer(_theGame);
 				break;
 			default:
-				_ai = new AIHardPlayer(_theGame);
+				_ai = new AIEasyPlayer(_theGame);
 				break;
 		}
 
@@ -307,7 +307,10 @@ public static class GameController
 			case GameState.ViewingHighScores:
 				HighScoreController.HandleHighScoreInput();
 				break;
-		}
+            case GameState.Instructions:
+                HighScoreController.HandleHighScoreInput();
+                break;
+        }
 		UtilityFunctions.UpdateAnimations();
 	}
 
@@ -346,6 +349,7 @@ public static class GameController
 			case GameState.ViewingHighScores:
 				HighScoreController.DrawHighScores();
 				break;
+
 		}
 		UtilityFunctions.DrawAnimations();
 		SwinGame.RefreshScreen();

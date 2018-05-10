@@ -4,6 +4,7 @@ using System;
 
 public static class GameResources
 {
+
 	private static Dictionary<string, Bitmap> _images = new Dictionary<string, Bitmap>();
 	private static Dictionary<string, Font> _fonts = new Dictionary<string, Font>();
 	private static Dictionary<string, SoundEffect> _sounds = new Dictionary<string, SoundEffect>();
@@ -18,17 +19,25 @@ public static class GameResources
 	private static void LoadFonts()
 	{
 		NewFont("ArialLarge", "arial.ttf", 80);
-		NewFont("Courier", "cour.ttf", 14);
-		NewFont("CourierSmall", "cour.ttf", 8);
-		NewFont("Menu", "ffaccess.ttf", 8);
-	}
+		NewFont("Courier", "cour.ttf", 14); //Ship names deployment font
+		NewFont("CourierSmall", "cour.ttf", 8); //UI notifier playing game
+		NewFont("Menu", "ffaccess.ttf", 8); //Score
 
+	}
+    private static void LoadChangedFonts()
+    {
+        NewFont("ArialLarge", "GOTHIC.ttf", 80);
+        NewFont("Courier", "GOTHIC.ttf", 14); //Ship names deployment font
+        NewFont("CourierSmall", "GOTHIC.ttf", 8); //UI notifier playing game
+        NewFont("Menu", "GOTHIC.ttf", 12); //Score
+    }
 	private static void LoadImages()
 	{
 		// Backgrounds:
 		NewImage("Menu", "main_page.jpg");
 		NewImage("Discovery", "discover.jpg");
 		NewImage("Deploy", "deploy.jpg");
+        NewImage("InstructionsPage", "InstructionsPage.jpg");
 
 		// Deployment:
 		NewImage("LeftRightButton", "deploy_dir_button_horiz.png");
@@ -47,6 +56,9 @@ public static class GameResources
 		// Explosions:
 		NewImage("Explosion", "explosion.png");
 		NewImage("Splash", "splash.png");
+    
+    //mouse icon:
+        NewImage("MouseIcon", "mouseicon.png");
 	}
 
 	private static void LoadSounds()
@@ -57,11 +69,13 @@ public static class GameResources
 		NewSound("Miss", "watershot.wav");
 		NewSound("Winner", "winner.wav");
 		NewSound("Lose", "lose.wav");
+		
+		// NewSound ("Siren", "siren.wav");
 	}
-    //
+
 	private static void LoadMusic()
 	{
-		NewMusic("Background", "horrordrone.mp3");
+		NewMusic("Background", "horrordrone.wav");
 	}
 
 	// '' <summary>
@@ -99,9 +113,9 @@ public static class GameResources
 	// '' </summary>
 	// '' <param name="music">Name of music</param>
 	// '' <returns>The music with this name</returns>
-	public static Music GameMusic(string music)
+	public static Music GameMusic(string NewMusic)
 	{
-		return _music[music];
+		return _music[NewMusic];
 	}
 
 	// '' <summary>
@@ -118,26 +132,34 @@ public static class GameResources
 
 		ShowMessage("Loading fonts...", 0);
 		LoadFonts();
-        SwinGame.Delay (100);
+		 
+		//SwinGame.Delay (100);
 
 		ShowMessage("Loading images...", 1);
 		LoadImages();
-        SwinGame.Delay (100);
+		
+		//SwinGame.Delay (100);
 
 		ShowMessage("Loading sounds...", 2);
 		LoadSounds();
-        SwinGame.Delay (100);
+		
+		//SwinGame.Delay (100);
 
 		ShowMessage("Loading music...", 3);
 		LoadMusic();
-        SwinGame.Delay (100);
-
+		
+		//SwinGame.Delay (100);
 
 		ShowMessage("Game loaded...", 5);
-
+		
+		//SwinGame.Delay (100);
 		EndLoadingScreen(width, height);
 	}
-
+    public static void LoadChangedFontResources()
+    {
+        _fonts.Clear();
+        LoadChangedFonts();
+    }
 	private static void ShowLoadingScreen()
 	{
 		_background = SwinGame.LoadBitmap(SwinGame.PathToResource("SplashBack.png", ResourceKind.BitmapResource));
@@ -158,16 +180,18 @@ public static class GameResources
 	{
 		const int ANI_CELL_COUNT = 11;
 		Audio.PlaySoundEffect(_startSound);
-
+		// NOTE(Xavier): Delay removed to speed up debugging 
+		//SwinGame.Delay (200);
 
 		for (int i = 0; i <= ANI_CELL_COUNT - 1; i++)
 		{
 			SwinGame.DrawBitmap(_background, 0, 0);
-
+	
 			SwinGame.RefreshScreen();
 			SwinGame.ProcessEvents();
 		}
 
+		
 	}
 
 	private static void ShowMessage(string message, int number)
@@ -178,13 +202,13 @@ public static class GameResources
 		const int TW = 200;
 		const int TH = 25;
 		const int BG_X = 279;
-	
+
 		// const int STEPS = 5;
 
 		SwinGame.DrawBitmap(_loaderEmpty, BG_X, BG_Y);
 		SwinGame.DrawCell(_loaderFull, 0, BG_X, BG_Y);
 
-
+		// TODO(Xavier): This is not supported, find alternative
 		// int fullW = (260 * number) / STEPS;
 		// SwinGame.DrawBitmapPart(_LoaderFull, 0, 0, fullW, 66, BG_X, BG_Y)
 
@@ -194,7 +218,7 @@ public static class GameResources
 		toDraw.Width = TW;
 		toDraw.Height = TH;
 
-
+	
 		// SwinGame.DrawTextLines (message, Color.White, Color.Transparent, _LoadingFont, FontAlignment.AlignCenter, toDraw);
 		// SwinGame.DrawTextLines(message, Color.White, Color.Transparent, _LoadingFont, FontAlignment.AlignCenter, TX, TY, TW, TH)
 		SwinGame.DrawText(message, Color.White, Color.Transparent, _loadingFont, FontAlignment.AlignCenter, toDraw);
@@ -204,92 +228,111 @@ public static class GameResources
 		SwinGame.ProcessEvents();
 	}
 
-	private static void EndLoadingScreen(int width, int height)
-	{
-		SwinGame.ProcessEvents();
 
 
-		SwinGame.ClearScreen();
-		SwinGame.RefreshScreen();
-		SwinGame.FreeFont(_loadingFont);
-		SwinGame.FreeBitmap(_background);
-		SwinGame.FreeBitmap(_animation);
-		SwinGame.FreeBitmap(_loaderEmpty);
-		SwinGame.FreeBitmap(_loaderFull);
+    private static void EndLoadingScreen(int width, int height)
+    {
+        SwinGame.ProcessEvents();
 
-		// Audio.FreeSoundEffect (_StartSound);
 
-		SwinGame.ChangeScreenSize(width, height);
-	}
+        SwinGame.ClearScreen();
+        SwinGame.RefreshScreen();
+        SwinGame.FreeFont(_loadingFont);
+        SwinGame.FreeBitmap(_background);
+        SwinGame.FreeBitmap(_animation);
+        SwinGame.FreeBitmap(_loaderEmpty);
+        SwinGame.FreeBitmap(_loaderFull);
 
+        // Audio.FreeSoundEffect (_StartSound);
+
+        SwinGame.ChangeScreenSize(width, height);
+    }
+
+    
 	private static void NewFont(string fontName, string filename, int size)
 	{
 		_fonts.Add(fontName, SwinGame.LoadFont(SwinGame.PathToResource(filename, ResourceKind.FontResource), size));
 	}
 
-	private static void NewImage(string imageName, string filename)
-	{
-		_images.Add(imageName, SwinGame.LoadBitmap(SwinGame.PathToResource(filename, ResourceKind.BitmapResource)));
-	}
 
-	private static void NewTransparentColorImage(string imageName, string fileName, Color transColor)
-	{
-		_images.Add(imageName, SwinGame.LoadBitmap(SwinGame.PathToResource(fileName, ResourceKind.BitmapResource)));
-	}
 
-	private static void NewTransparentColourImage(string imageName, string fileName, Color transColor)
-	{
-		NewTransparentColorImage(imageName, fileName, transColor);
-	}
+    private static void NewImage(string imageName, string filename)
+    {
+        _images.Add(imageName, SwinGame.LoadBitmap(SwinGame.PathToResource(filename, ResourceKind.BitmapResource)));
+    }
 
-	private static void NewSound(string soundName, string filename)
-	{
-		_sounds.Add(soundName, Audio.LoadSoundEffect(SwinGame.PathToResource(filename, ResourceKind.SoundResource)));
-	}
+    private static void NewTransparentColorImage(string imageName, string fileName, Color transColor)
+    {
+        _images.Add(imageName, SwinGame.LoadBitmap(SwinGame.PathToResource(fileName, ResourceKind.BitmapResource)));
+    }
 
-	private static void NewMusic(string musicName, string filename)
-	{
+    private static void NewTransparentColourImage(string imageName, string fileName, Color transColor)
+    {
+        NewTransparentColorImage(imageName, fileName, transColor);
+    }
+
+    private static void NewSound(string soundName, string filename)
+    {
+        _sounds.Add(soundName, Audio.LoadSoundEffect(SwinGame.PathToResource(filename, ResourceKind.SoundResource)));
+    }
+
+    private static void NewMusic(string musicName, string filename)
+    {
         _music.Add(musicName, Audio.LoadMusic(SwinGame.PathToResource(filename, ResourceKind.SoundResource)));
-	}
+    }
 
-	private static void FreeFonts()
-	{
-		foreach (Font obj in _fonts.Values)
-		{
-			SwinGame.FreeFont(obj);
-		}
-	}
+    private static void FreeFonts()
+    {
+        foreach (Font obj in _fonts.Values)
+        {
+            SwinGame.FreeFont(obj);
+        }
+    }
 
-	private static void FreeImages()
-	{
-		foreach (Bitmap obj in _images.Values)
-		{
-			SwinGame.FreeBitmap(obj);
-		}
-	}
+    private static void FreeImages()
+    {
+        foreach (Bitmap obj in _images.Values)
+        {
+            SwinGame.FreeBitmap(obj);
+        }
+    }
 
-	private static void FreeSounds()
-	{
-		// foreach (SoundEffect obj in _Sounds.Values) {
-		//     Audio.FreeSoundEffect (obj);
-		// }
-	}
+    private static void FreeSounds()
+    {
+        // foreach (SoundEffect obj in _Sounds.Values) {
+        //     Audio.FreeSoundEffect (obj);
+        // }
+    }
 
-	private static void FreeMusic()
-	{
-		foreach (Music obj in _music.Values)
-		{
-			Audio.FreeMusic(obj);
-		}
-	}
+    private static void FreeMusic()
+    {
+        foreach (Music obj in _music.Values)
+        {
+            Audio.FreeMusic(obj);
+        }
+    }
 
-	public static void FreeResources()
-	{
-		FreeFonts();
-		FreeImages();
-		FreeMusic();
-		FreeSounds();
-		SwinGame.ProcessEvents();
-	}
+    public static void FreeResources()
+    {
+        FreeFonts();
+        FreeImages();
+        FreeMusic();
+        FreeSounds();
+        SwinGame.ProcessEvents();
+    }
+
+    public static void MouseIcon()
+    {
+        if (SwinGame.MouseDown(MouseButton.LeftButton))
+        {
+            Point2D mouse = Input.MousePosition();
+            SwinGame.DrawBitmap(GameImage("MouseIcon"), mouse.X - 10, mouse.Y - 10);
+            SwinGame.ShowMouse(false);
+        }
+        else
+        {
+            SwinGame.ShowMouse(true);
+        }
+    }
 
 }
