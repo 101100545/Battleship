@@ -248,7 +248,32 @@ public static class UtilityFunctions
 			case GameState.Deploying:
 				SwinGame.DrawBitmap(GameResources.GameImage("Deploy"), 0, 0);
 				break;
-			default:
+            case GameState.Instructions:
+                SwinGame.DrawBitmap(GameResources.GameImage("InstructionsPage"), 0, 0);
+                SwinGame.DrawText("--Instructions for Battleship--", Color.Blue, GameResources.GameFont("Courier"), 250, 10);
+
+                SwinGame.DrawText("--BASIC STUFF--", Color.Yellow, GameResources.GameFont("Courier"), 100, 40);
+                SwinGame.DrawText("--DIFFICULTY--", Color.Yellow, GameResources.GameFont("Courier"), 100, 60);
+                SwinGame.DrawText("Choose between 3 Difficulties; Easy, Medium and Hard", Color.White, GameResources.GameFont("Courier"), 100, 80);
+
+                SwinGame.DrawText("--HIGH SCORES--", Color.Yellow, GameResources.GameFont("Courier"), 100, 100);
+                SwinGame.DrawText("Click on the scores button to view the Player's high score", Color.White, GameResources.GameFont("Courier"), 100, 120);
+
+                SwinGame.DrawText("--AIM OF THE GAME--", Color.Yellow, GameResources.GameFont("Courier"), 100, 140);
+                SwinGame.DrawText("Destroy all the opponent's ships in order to win", Color.White, GameResources.GameFont("Courier"), 100, 160);
+
+                SwinGame.DrawText("--SCORING--", Color.Yellow, GameResources.GameFont("Courier"), 100, 190);
+                SwinGame.DrawText("Each time the player hits the opponent's ship, 1 point will be given", Color.White, GameResources.GameFont("Courier"), 100, 210);
+
+                SwinGame.DrawText("--GAME INSTRUCTIONS--", Color.Yellow, GameResources.GameFont("Courier"), 100, 300);
+                SwinGame.DrawText("1. During Ship deployment stage, you can either place the ship on the grid", Color.White, GameResources.GameFont("Courier"), 100, 320);
+                SwinGame.DrawText("horizontally or vertically. Or you can select the random shuffle which deploys", Color.White, GameResources.GameFont("Courier"), 100, 340);
+                SwinGame.DrawText("all the ship on the grid for you. Note: All ship must be deployed before", Color.White, GameResources.GameFont("Courier"), 100, 360);
+                SwinGame.DrawText("starting the game.", Color.White, GameResources.GameFont("Courier"), 100, 380);
+                SwinGame.DrawText("2.During the attack stage, you will just need to Click on the grid", Color.White, GameResources.GameFont("Courier"), 100, 430);
+                SwinGame.DrawText("in order to attack enemy's ship.", Color.White, GameResources.GameFont("Courier"), 100, 450);
+                break;
+            default:
 				SwinGame.ClearScreen();
 				break;
 		}

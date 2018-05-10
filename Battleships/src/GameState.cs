@@ -35,6 +35,11 @@ public enum GameState
 	// '' </summary>
 	Discovering,
 
+    //<summary>
+    // players can see instructions/rules
+    //</summary>
+    Instructions,
+
 	// '' <summary>
 	// '' One player has won, showing the victory screen
 	// '' </summary>
