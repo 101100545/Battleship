@@ -9,27 +9,34 @@ using System;
 public static class MenuController
 {
 	private static string[][] _menuStructure = {
-		new string[] {"PLAY", "SETUP", "SCORES", "RST SCORES", "RULES", "QUIT",},
+
+		new string[] {"PLAY", "SETUP", "SCORES", "RST SCORES", "RULES", "MENUCOLOR", "QUIT",},
 		new string[] {"RETURN", "SURRENDER", "QUIT"},
 		new string[] {"EASY", "MEDIUM", "HARD", "FONT"},
+    new string[] {"White","Purple","Red"},
 	};
 
 	private const int MENU_TOP = 575;
 	private const int MENU_LEFT = 30;
 	private const int MENU_GAP = 0;
+
 	private const int BUTTON_WIDTH = 75;
 	private const int BUTTON_HEIGHT = 15;
 	private const int BUTTON_SEP = (BUTTON_WIDTH + MENU_GAP);
 	private const int TEXT_OFFSET = 0;
+
 	private const int MAIN_MENU = 0;
 	private const int GAME_MENU = 1;
 	private const int SETUP_MENU = 2;
-	private const int MAIN_MENU_PLAY_BUTTON = 0;
+    private const int COLOR_MENU = 3;
+
+    private const int MAIN_MENU_PLAY_BUTTON = 0;
 	private const int MAIN_MENU_SETUP_BUTTON = 1;
 	private const int MAIN_MENU_TOP_SCORES_BUTTON = 2;
     private const int MAIN_MENU_RST_SCORES = 3; //RST SCORE
     private const int MAIN_MENU_RULES_BUTTON = 4;
-    private const int MAIN_MENU_QUIT_BUTTON = 5;
+  private const int MAIN_MENU_COLOR_MENU_BUTTON = 5;
+    private const int MAIN_MENU_QUIT_BUTTON = 6;
     private const int SETUP_MENU_EASY_BUTTON = 0;
 	private const int SETUP_MENU_MEDIUM_BUTTON = 1;
 	private const int SETUP_MENU_HARD_BUTTON = 2;
@@ -38,6 +45,13 @@ public static class MenuController
 	private const int GAME_MENU_RETURN_BUTTON = 0;
 	private const int GAME_MENU_SURRENDER_BUTTON = 1;
 	private const int GAME_MENU_QUIT_BUTTON = 2;
+  
+      private const int COLOR_MENU_WHITE = 0;
+    private const int COLOR_MENU_PURPLE = 1;
+    private const int COLOR_MENU_RED = 2;
+  
+  private static Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
+  
 	//private static Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
 	private static Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(1, 57, 86, 255);
 
@@ -71,15 +85,24 @@ public static class MenuController
 	{
 		HandleMenuInput(GAME_MENU, 0, 0);
 	}
+  
+    public static void HandleColorMenuInput()
+    {
+        bool handled = HandleMenuInput(COLOR_MENU, 1, 2);
+        if (!handled)
+        {
+            HandleMenuInput(MAIN_MENU, 0, 0);
+            
+        }
+        
+    }
 
-	// '' <summary>
-	// '' Handles input for the specified menu.
-	// '' </summary>
-	// '' <param name="menu">the identifier of the menu being processed</param>
-	// '' <param name="level">the vertical level of the menu</param>
-	// '' <param name="xOffset">the xoffset of the menu</param>
-	// '' <returns>false if a clicked missed the buttons. This can be used to check prior menus.</returns>
-	private static bool HandleMenuInput(int menu, int level, int xOffset)
+    //Handles input for the specified menu.
+    //<param name="menu">the identifier of the menu being processed</param>
+    //<param name="level">the vertical level of the menu</param>
+    //<param name="xOffset">the xoffset of the menu</param>
+    //<returns>false if a clicked missed the buttons. This can be used to check prior menus.</returns>
+    private static bool HandleMenuInput(int menu, int level, int xOffset)
 	{
 		if (SwinGame.KeyTyped(KeyCode.EscapeKey))
 		{
@@ -143,10 +166,12 @@ public static class MenuController
 		DrawButtons(SETUP_MENU, 1, 1);
 	}
 
-	// '' <summary>
-	// '' Draw the buttons associated with a top level menu.
-	// '' </summary>
-	// '' <param name="menu">the index of the menu to draw</param>
+    public static void DrawMenuColor()
+    {
+        DrawButtons(MAIN_MENU);
+        DrawButtons(COLOR_MENU, 1, 2);
+    }
+  
 	private static void DrawButtons(int menu)
 	{
 		DrawButtons(menu, 0, 0);
@@ -229,7 +254,10 @@ public static class MenuController
 			case GAME_MENU:
 				PerformGameMenuAction(button);
 				break;
-		}
+            case COLOR_MENU:
+                PerformColorChangeAction(button);
+                break;
+        }
 	}
 
 	// '' <summary>
@@ -255,6 +283,9 @@ public static class MenuController
             case MAIN_MENU_RULES_BUTTON:
                 GameController.AddNewState(GameState.Instructions);
                 break;
+            case MAIN_MENU_COLOR_MENU_BUTTON:
+                GameController.AddNewState(GameState.AlteringMenuColor);
+                break;
             case MAIN_MENU_QUIT_BUTTON:
 				GameController.EndCurrentState();
 				break;
@@ -265,6 +296,7 @@ public static class MenuController
 	// '' The setup menu was clicked, perform the button's action.
 	// '' </summary>
 	// '' <param name="button">the button pressed</param>
+  
 	private static void PerformSetupMenuAction(int button)
 	{
 		switch (button)
@@ -275,16 +307,40 @@ public static class MenuController
 			case SETUP_MENU_MEDIUM_BUTTON:
 				GameController.SetDifficulty(AIOption.Hard);
 				break;
-			case SETUP_MENU_HARD_BUTTON:
-                GameController.SetDifficulty(AIOption.Hard);
+      case SETUP_MENU_HARD_BUTTON:
+        GameController.SetDifficulty(AIOption.Hard);
+        break;
+      case MAIN_MENU_CHANGE_FONT_BUTTON:
+         GameResources.LoadChangedFontResources();
+        break;
+        }
+
+        GameController.EndCurrentState();
+	}
+
+    private static void PerformColorChangeAction(int button)
+    {
+        switch (button)
+        {
+            case COLOR_MENU_WHITE:
+                ChangeMenuColor(Color.White);
                 break;
-            case MAIN_MENU_CHANGE_FONT_BUTTON:
-                GameResources.LoadChangedFontResources();
+            case COLOR_MENU_PURPLE:
+                ChangeMenuColor(Color.Purple);
+                break;
+            case COLOR_MENU_RED:
+                ChangeMenuColor(Color.Red);
                 break;
         }
-		// Always end state - handles exit button as well
-		GameController.EndCurrentState();
-	}
+        GameController.EndCurrentState();
+
+
+    }
+
+    private static void ChangeMenuColor(Color _color)
+    {
+        MENU_COLOR = _color;
+    }
 
 	// '' <summary>
 	// '' The game menu was clicked, perform the button's action.

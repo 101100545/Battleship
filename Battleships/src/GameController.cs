@@ -29,6 +29,8 @@ public static class GameController
 		}
 	}
 
+   
+
 	public static Player HumanPlayer
 	{
 		get
@@ -75,6 +77,9 @@ public static class GameController
 		// create the players
 		switch (_aiSetting)
 		{
+            case AIOption.Easy:
+                _ai = new AIEasyPlayer(_theGame);
+                break;
 			case AIOption.Medium:
 				_ai = new AIMediumPlayer(_theGame);
 				break;
@@ -82,7 +87,7 @@ public static class GameController
 				_ai = new AIHardPlayer(_theGame);
 				break;
 			default:
-				_ai = new AIHardPlayer(_theGame);
+				_ai = new AIEasyPlayer(_theGame);
 				break;
 		}
 
@@ -287,6 +292,9 @@ public static class GameController
 			case GameState.AlteringSettings:
 				MenuController.HandleSetupMenuInput();
 				break;
+            case GameState.AlteringMenuColor:
+                MenuController.HandleColorMenuInput();
+                break;
 			case GameState.Deploying:
 				DeploymentController.HandleDeploymentInput();
 				break;
@@ -326,6 +334,9 @@ public static class GameController
 			case GameState.AlteringSettings:
 				MenuController.DrawSettings();
 				break;
+            case GameState.AlteringMenuColor:
+                MenuController.DrawMenuColor();
+                break;
 			case GameState.Deploying:
 				DeploymentController.DrawDeployment();
 				break;
