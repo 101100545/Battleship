@@ -261,7 +261,10 @@ public static class GameResources
         _images.Add(imageName, SwinGame.LoadBitmap(SwinGame.PathToResource(filename, ResourceKind.BitmapResource)));
     }
 
-
+    private static void NewTransparentColorImage(string imageName, string fileName, Color transColor)
+    {
+        _images.Add(imageName, SwinGame.LoadBitmap(SwinGame.PathToResource(fileName, ResourceKind.BitmapResource)));
+    }
 
     private static void NewTransparentColourImage(string imageName, string fileName, Color transColor)
     {
